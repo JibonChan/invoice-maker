@@ -15,9 +15,8 @@ st.title("Invoice Generator")
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
-# Login Form
-if not st.session_state.logged_in:
-    st.subheader("Login to Access the Invoice")
+# Function to show login form
+def show_login_form():
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
 
@@ -28,8 +27,9 @@ if not st.session_state.logged_in:
             st.success("Login successful!")
         else:
             st.error("Invalid username or password. Please try again.")
-else:
-    # Once logged in, hide the login form and show the invoice
+
+# Function to show invoice content after login
+def show_invoice():
     st.markdown(
         """
         ### Instructions:
@@ -143,7 +143,7 @@ else:
 
             /* Log out button style */
             #logoutButton {
-                position: absolute;
+                position: fixed;
                 top: 20px;
                 right: 20px;
                 padding: 10px;
@@ -152,6 +152,7 @@ else:
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
+                z-index: 1000; /* Ensure it stays above the invoice */
             }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -273,3 +274,9 @@ else:
 
     # Embed the HTML content in the Streamlit app
     st.components.v1.html(html_content, height=800, scrolling=True)
+
+# Main app flow
+if not st.session_state.logged_in:
+    show_login_form()
+else:
+    show_invoice()
