@@ -2,7 +2,7 @@ import streamlit as st
 
 # Hardcode credentials
 SECRET_USERNAME = "ano"
-SECRET_PASSWORD = "AnoAwomi@123"
+SECRET_PASSWORD = "anoAwomi@123"
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -140,6 +140,19 @@ else:
             .blue-text {
                 color: #5e5b95;
             }
+
+            /* Log out button style */
+            #logoutButton {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 10px;
+                background-color: #f44336;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -205,6 +218,8 @@ else:
     </div>
     <button id="downloadButton" style="margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border: none;">Download PDF</button>
 
+    <button id="logoutButton" onclick="window.location.href = window.location.href;">Log Out</button>
+
     <script>
         $(document).ready(function() {
             // Make fields editable
@@ -258,8 +273,3 @@ else:
 
     # Embed the HTML content in the Streamlit app
     st.components.v1.html(html_content, height=800, scrolling=True)
-
-    # Log out button
-    if st.button("Log Out"):
-        st.session_state.logged_in = False
-        st.experimental_rerun()
