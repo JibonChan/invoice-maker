@@ -127,7 +127,7 @@ html_content = """
             </div>
         </div>
 
-        <hr>
+        <hr></hr>
 
         <div class="invoice-details">
             <center>
