@@ -140,21 +140,6 @@ def show_invoice():
             .blue-text {
                 color: #5e5b95;
             }
-
-            /* Log out button style */
-            #logoutButton {
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-                background-color: #f44336;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                z-index: 1000; /* Ensure it stays above the invoice */
-            }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -219,8 +204,6 @@ def show_invoice():
         </div>
     </div>
     <button id="downloadButton" style="margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border: none;">Download PDF</button>
-
-    <button id="logoutButton" onclick="window.location.reload();">Log Out</button>
 
     <script>
         $(document).ready(function() {
