@@ -171,7 +171,7 @@ html_content = """
 
             <div class="invoice-footer blue-text">
                 <p>NGOVI HOMESTAY | 5th BYLANE, SHAKUNTALA PATH, DOWNTOWN, 781001, GUWAHATI</p>
-                <p>PHONE: +91 9101431108/9366016858</p>
+                <p>PHONE: +91 9101431108  |  9366016858</p>
             </div>
         </div>
     </div>
