@@ -112,7 +112,7 @@ html_content = """
 </head>
 <body>
 <div class="container">
-    <div class="invoice">
+    <div id="invoice-content" class="invoice">
         <div class="invoice-header blue-text">
         <h1>INVOICE</h1>
         <h2>NGOVI HOMESTAY</h2>
@@ -199,7 +199,7 @@ html_content = """
 
         // Download PDF functionality
         $("#downloadButton").on("click", function() {
-            const invoiceElement = document.getElementById("invoice-content");
+            const invoiceElement = document.getElementById("invoice-content"); // Use the correct ID here
             html2canvas(invoiceElement).then(function(canvas) {
                 const imgData = canvas.toDataURL("image/png");
                 const { jsPDF } = window.jspdf;
@@ -220,5 +220,3 @@ html_content = """
 
 # Embed the HTML content in the Streamlit app
 st.components.v1.html(html_content, height=800)
-
-    
