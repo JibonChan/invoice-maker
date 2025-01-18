@@ -234,6 +234,8 @@ def show_invoice():
             makeEditable("duration");
             makeEditable("total");
             makeEditable("phone_no");
+            makeEditable("room_type");
+            makeEditable("withac");
 
             // Download PDF functionality
             $("#downloadButton").on("click", function() {
