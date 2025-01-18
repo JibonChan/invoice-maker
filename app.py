@@ -206,6 +206,7 @@ html_content = """
         makeEditable("fooding");
         makeEditable("duration");
         makeEditable("total");
+        makeEditable("phone_no");
 
         // Download PDF functionality
         $("#downloadButton").on("click", function() {
