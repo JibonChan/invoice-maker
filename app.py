@@ -86,12 +86,13 @@ html_content = """
             color: #2b2b95;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <div class="invoice">
+    <div class="invoice" id="invoice-content">
         <div class="invoice-header blue-text">
             <h1>INVOICE</h1>
             <h2>NGOVI HOMESTAY</h2>
@@ -172,24 +173,18 @@ html_content = """
 
         // Download PDF functionality
         $("#downloadButton").on("click", function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            const invoiceElement = document.getElementById("invoice-content");
+            html2canvas(invoiceElement).then(function(canvas) {
+                const imgData = canvas.toDataURL("image/png");
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF("p", "mm", "a4");
 
-            doc.setFontSize(20);
-            doc.text("INVOICE", 105, 20, { align: "center" });
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-            doc.setFontSize(12);
-            doc.text("Date: " + $("#invoice-date").text(), 20, 40);
-            doc.text("To: " + $("#invoice-to").text(), 20, 50);
-
-            doc.text("Check In: " + $("#check-in").text(), 20, 70);
-            doc.text("Check Out: " + $("#check-out").text(), 20, 80);
-            doc.text("Room Cost: Rs. " + $("#rate").text() + "/day", 20, 90);
-            doc.text("Fooding: Rs. " + $("#fooding").text(), 20, 100);
-            doc.text("Duration Of Stay: " + $("#duration").text() + " Days", 20, 110);
-            doc.text("Grand Total: Rs. " + $("#total").text(), 20, 120);
-
-            doc.save("invoice.pdf");
+                doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+                doc.save("invoice.pdf");
+            });
         });
     });
 </script>
