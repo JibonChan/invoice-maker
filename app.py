@@ -132,7 +132,7 @@ html_content = """
                     <b class="blue-text">DATE :</b> <span id="invoice-date">18 January 2025</span>
                 </div>
                 <div class="invoice-to">
-                    <b class="blue-text">TO :</b> <span id="invoice-to">Ana Awami</span>
+                    <b class="blue-text">TO :</b> <span id="invoice-to">Customer name</span> <span><br> +91 <span id="phone_no">8888888888</span></span>
                 </div>
             </div>
 
