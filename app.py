@@ -144,8 +144,9 @@ def show_invoice():
             /* Log out button style */
             #logoutButton {
                 position: fixed;
-                top: 20px;
-                right: 20px;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
                 padding: 10px;
                 background-color: #f44336;
                 color: white;
@@ -219,7 +220,7 @@ def show_invoice():
     </div>
     <button id="downloadButton" style="margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border: none;">Download PDF</button>
 
-    <button id="logoutButton" onclick="window.location.href = window.location.href;">Log Out</button>
+    <button id="logoutButton" onclick="window.location.reload();">Log Out</button>
 
     <script>
         $(document).ready(function() {
