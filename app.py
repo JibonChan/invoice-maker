@@ -21,11 +21,13 @@ html_content = """
         body {
             font-family: Arial, sans-serif;
             font-size: 14px;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
             width: 800px;
-            margin: auto;
+            margin: 0 auto;
             background-color: #F0F0F0;
             padding: 20px;
             overflow-x: auto;
@@ -41,10 +43,17 @@ html_content = """
             text-align: center;
             margin-bottom: 20px;
         }
+        .invoice-sub-header {
+            width: 96%;
+            margin: auto 2%;
+            color: #2b2b32;
+            display: flex;
+            justify-content: space-between;
+        }
 
         .invoice-header h1 {
             margin: 0;
-            font-size: 32px;
+            font-size: 40px;
             font-weight: bold;
         }
 
@@ -53,19 +62,14 @@ html_content = """
             margin-top: 2px;
         }
 
-        .invoice-sub-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
         .invoice-details {
             margin-top: 10px;
             margin-bottom: 20px;
+            color: #2b2b32;
         }
 
         .invoice-details table {
-            width: 100%;
+            width: 96%;
             border-collapse: collapse;
         }
 
@@ -76,14 +80,30 @@ html_content = """
             text-align: left;
         }
 
+        .invoice-details table th {
+            font-weight: normal;
+            background-color: #f2f2f2;
+        }
+
         .invoice-footer {
             text-align: center;
             font-size: 12px;
             margin-top: 20px;
         }
 
+        .invoice-footer p {
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice-date,
+        .invoice-to {
+            margin-bottom: 0px;
+        }
+
         .blue-text {
-            color: #2b2b95;
+            color: #5e5b95;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -92,54 +112,60 @@ html_content = """
 </head>
 <body>
 <div class="container">
-    <div class="invoice" id="invoice-content">
+    <div class="invoice">
         <div class="invoice-header blue-text">
-            <h1>INVOICE</h1>
-            <h2>NGOVI HOMESTAY</h2>
+        <h1>INVOICE</h1>
+        <h2>NGOVI HOMESTAY</h2>
         </div>
 
         <div class="invoice-sub-header">
-            <div><b>DATE: </b><span id="invoice-date">18 January 2025</span></div>
-            <div><b>TO: </b><span id="invoice-to">Ana Awami</span></div>
+            <div class="invoice-date">
+                <b class="blue-text">DATE :</b> <span id="invoice-date">18 January 2025</span>
+            </div>
+            <div class="invoice-to">
+                <b class="blue-text">TO :</b> <span id="invoice-to">Ana Awami</span>
+            </div>
         </div>
+
+        <hr>
 
         <div class="invoice-details">
-            <table>
-                <tr>
+            <center>
+                <table>
+                    <tr>
                     <th>Check In</th>
-                    <td><span id="check-in">14 January 2025</span></td>
-                </tr>
-                <tr>
+                    <td><span id="check-in">14th January 2025</span></td>
+                    </tr>
+                    <tr>
                     <th>Check Out</th>
-                    <td><span id="check-out">18 January 2025</span></td>
-                </tr>
-                <tr>
-                    <th>Room Cost (2BHK AC Unit)</th>
+                    <td><span id="check-out">18th January 2025</span></td>
+                    </tr>
+                    <tr>
+                    <th>Room Cost (<span id="room_type">2</span>BHK <span id="withac">AC</span> Unit)</th>
                     <td>Rs. <span id="rate">3000</span>/day</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                     <th>Fooding</th>
-                    <td>Rs. <span id="fooding">0</span></td>
-                </tr>
-                <tr>
+                    <td>Rs. <span id="fooding">0</span> (Lunch and Dinner)</td>
+                    </tr>
+                    <tr>
                     <th>Duration Of Stay</th>
                     <td><span id="duration">4</span> Days</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                     <th>Grand Total</th>
                     <td>Rs. <span id="total">12000</span></td>
-                </tr>
-            </table>
+                    </tr>
+                </table>
+            </center>
         </div>
 
-        <div class="invoice-footer">
-            <p><b>NGOVI HOMESTAY</b></p>
-            <p>5th BYLANE, SHAKUNTALA PATH, DOWNTOWN, 781001, GUWAHATI</p>
+        <div class="invoice-footer blue-text">
+            <p>NGOVI HOMESTAY | 5th BYLANE, SHAKUNTALA PATH, DOWNTOWN, 781001, GUWAHATI</p>
             <p>PHONE: +91 9101431108/9366016858</p>
         </div>
     </div>
 </div>
-
 <button id="downloadButton" style="margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border: none;">Download PDF</button>
 
 <script>
@@ -194,3 +220,5 @@ html_content = """
 
 # Embed the HTML content in the Streamlit app
 st.components.v1.html(html_content, height=800)
+
+    
