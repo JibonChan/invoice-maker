@@ -1,6 +1,18 @@
 import streamlit as st
 
-# HTML content for the invoice with embedded JavaScript (jsPDF and DOMPurify)
+# Title of the app
+st.title("Invoice Generator")
+
+# Add a note to users about editing
+st.markdown(
+    """
+    ### Instructions:
+    - Click on any field in the invoice to edit its value.
+    - Once you're done, click the "Download PDF" button to save the invoice as a PDF.
+    """
+)
+
+# HTML content for the invoice
 html_content = """
 <!DOCTYPE html>
 <html>
@@ -9,16 +21,14 @@ html_content = """
         body {
             font-family: Arial, sans-serif;
             font-size: 14px;
-            margin: 0;
-            padding: 0;
         }
 
         .container {
             width: 800px;
-            margin: 0 auto;
+            margin: auto;
             background-color: #F0F0F0;
             padding: 20px;
-            overflow-x: auto; 
+            overflow-x: auto;
         }
 
         .invoice {
@@ -31,17 +41,10 @@ html_content = """
             text-align: center;
             margin-bottom: 20px;
         }
-        .invoice-sub-header {
-            width: 96%;
-            margin: auto 2%;
-            color: #2b2b32;
-            display: flex;
-            justify-content: space-between;
-        }
 
         .invoice-header h1 {
             margin: 0;
-            font-size: 40px;
+            font-size: 32px;
             font-weight: bold;
         }
 
@@ -50,14 +53,19 @@ html_content = """
             margin-top: 2px;
         }
 
+        .invoice-sub-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
         .invoice-details {
             margin-top: 10px;
             margin-bottom: 20px;
-            color: #2b2b32;
         }
 
         .invoice-details table {
-            width: 96%;
+            width: 100%;
             border-collapse: collapse;
         }
 
@@ -68,96 +76,70 @@ html_content = """
             text-align: left;
         }
 
-        .invoice-details table th {
-            font-weight: normal;
-            background-color: #f2f2f2;
-        }
-
         .invoice-footer {
             text-align: center;
             font-size: 12px;
             margin-top: 20px;
         }
 
-        .invoice-footer p {
-            font-weight: bold;
-            margin: 0;
-            padding: 0;
-        }
-
-        .invoice-date,
-        .invoice-to {
-            margin-bottom: 0px;
-        }
-
         .blue-text {
-            color: #5e5b95;
+            color: #2b2b95;
         }
-
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.7/purify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-
 <div class="container">
     <div class="invoice">
         <div class="invoice-header blue-text">
-        <h1>INVOICE</h1>
-        <h2>NGOVI HOMESTAY</h2>
+            <h1>INVOICE</h1>
+            <h2>NGOVI HOMESTAY</h2>
         </div>
 
         <div class="invoice-sub-header">
-            <div class="invoice-date">
-                <b class="blue-text">DATE :</b> <span id="invoice-date">18 January 2025</span>
-            </div>
-            <div class="invoice-to">
-                <b class="blue-text">TO :</b> <span id="invoice-to">Ana Awami</span>
-            </div>
+            <div><b>DATE: </b><span id="invoice-date">18 January 2025</span></div>
+            <div><b>TO: </b><span id="invoice-to">Ana Awami</span></div>
         </div>
-
-        <hr>
 
         <div class="invoice-details">
-            <center>
-                <table>
-                    <tr>
+            <table>
+                <tr>
                     <th>Check In</th>
-                    <td><span id="check-in">14th January 2025</span></td>
-                    </tr>
-                    <tr>
+                    <td><span id="check-in">14 January 2025</span></td>
+                </tr>
+                <tr>
                     <th>Check Out</th>
-                    <td><span id="check-out">18th January 2025</span></td>
-                    </tr>
-                    <tr>
-                    <th>Room Cost (<span id="room_type">2</span>BHK <span id="withac">AC</span> Unit)</th>
+                    <td><span id="check-out">18 January 2025</span></td>
+                </tr>
+                <tr>
+                    <th>Room Cost (2BHK AC Unit)</th>
                     <td>Rs. <span id="rate">3000</span>/day</td>
-                    </tr>
-                    <tr>
+                </tr>
+                <tr>
                     <th>Fooding</th>
-                    <td>Rs. <span id="fooding">0</span> (Lunch and Dinner)</td>
-                    </tr>
-                    <tr>
+                    <td>Rs. <span id="fooding">0</span></td>
+                </tr>
+                <tr>
                     <th>Duration Of Stay</th>
                     <td><span id="duration">4</span> Days</td>
-                    </tr>
-                    <tr>
+                </tr>
+                <tr>
                     <th>Grand Total</th>
                     <td>Rs. <span id="total">12000</span></td>
-                    </tr>
-                </table>
-            </center>
+                </tr>
+            </table>
         </div>
 
-        <div class="invoice-footer blue-text">
-            <p>NGOVI HOMESTAY | 5th BYLANE, SHAKUNTALA PATH, DOWNTOWN, 781001, GUWAHATI</p>
+        <div class="invoice-footer">
+            <p><b>NGOVI HOMESTAY</b></p>
+            <p>5th BYLANE, SHAKUNTALA PATH, DOWNTOWN, 781001, GUWAHATI</p>
             <p>PHONE: +91 9101431108/9366016858</p>
         </div>
     </div>
 </div>
 
-<button id="downloadButton" style="padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Download PDF</button>
+<button id="downloadButton" style="margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border: none;">Download PDF</button>
 
 <script>
     $(document).ready(function() {
@@ -167,29 +149,15 @@ html_content = """
                 const $this = $(this);
                 if ($this.find("input").length > 0) return;
                 const currentText = $this.text();
-                $this.html(`<input type="text" value="${escapeHtml(currentText)}" />`);
+                $this.html(`<input type="text" value="${currentText}" />`);
                 const $input = $this.find("input");
                 $input.focus().select();
                 $input.on("blur keydown", function(e) {
                     if (e.type === "blur" || (e.type === "keydown" && e.key === "Enter")) {
                         const newText = $input.val().trim() || currentText;
-                        $this.text(escapeHtml(newText));
+                        $this.text(newText);
                     }
                 });
-            });
-        }
-
-        function escapeHtml(str) {
-            return str.replace(/[&<>"'/]/g, function(match) {
-                const escapeMap = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#39;',
-                    '/': '&#x2F;'
-                };
-                return escapeMap[match];
             });
         }
 
@@ -197,42 +165,37 @@ html_content = """
         makeEditable("invoice-to");
         makeEditable("check-in");
         makeEditable("check-out");
-        makeEditable("room_type");
-        makeEditable("withac");
         makeEditable("rate");
         makeEditable("fooding");
         makeEditable("duration");
         makeEditable("total");
 
-        // Download PDF using jsPDF
-        document.getElementById('downloadButton').onclick = function() {
+        // Download PDF functionality
+        $("#downloadButton").on("click", function() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Capture the content to be converted to PDF
-            const invoiceContent = document.querySelector('.container').innerHTML;
+            doc.setFontSize(20);
+            doc.text("INVOICE", 105, 20, { align: "center" });
 
-            // Sanitize the HTML content using DOMPurify
-            const sanitizedContent = DOMPurify.sanitize(invoiceContent);
+            doc.setFontSize(12);
+            doc.text("Date: " + $("#invoice-date").text(), 20, 40);
+            doc.text("To: " + $("#invoice-to").text(), 20, 50);
 
-            // Add the content to PDF
-            doc.html(sanitizedContent, {
-                callback: function (doc) {
-                    doc.save('invoice.pdf');
-                },
-                margin: [10, 10, 10, 10],
-                autoPaging: true
-            });
-        };
+            doc.text("Check In: " + $("#check-in").text(), 20, 70);
+            doc.text("Check Out: " + $("#check-out").text(), 20, 80);
+            doc.text("Room Cost: Rs. " + $("#rate").text() + "/day", 20, 90);
+            doc.text("Fooding: Rs. " + $("#fooding").text(), 20, 100);
+            doc.text("Duration Of Stay: " + $("#duration").text() + " Days", 20, 110);
+            doc.text("Grand Total: Rs. " + $("#total").text(), 20, 120);
+
+            doc.save("invoice.pdf");
+        });
     });
 </script>
-
 </body>
 </html>
 """
 
-# Title of the app
-st.title("Invoice Maker")
-
-# Render HTML content in Streamlit
-st.components.v1.html(html_content, height=600, scrolling=True)
+# Embed the HTML content in the Streamlit app
+st.components.v1.html(html_content, height=800)
