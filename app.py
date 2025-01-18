@@ -25,7 +25,6 @@ def show_login_form():
         if check_credentials(username, password):
             st.session_state.logged_in = True
             st.success("Login successful!")
-            st.experimental_rerun()  # Force the app to rerun and show invoice content
         else:
             st.error("Invalid username or password. Please try again.")
 
