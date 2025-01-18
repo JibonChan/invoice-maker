@@ -1,6 +1,6 @@
 import streamlit as st
 
-# HTML content for the invoice with embedded JavaScript (jsPDF)
+# HTML content for the invoice with embedded JavaScript (jsPDF and DOMPurify)
 html_content = """
 <!DOCTYPE html>
 <html>
@@ -96,6 +96,7 @@ html_content = """
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.7/purify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
@@ -212,8 +213,11 @@ html_content = """
             // Capture the content to be converted to PDF
             const invoiceContent = document.querySelector('.container').innerHTML;
 
+            // Sanitize the HTML content using DOMPurify
+            const sanitizedContent = DOMPurify.sanitize(invoiceContent);
+
             // Add the content to PDF
-            doc.html(invoiceContent, {
+            doc.html(sanitizedContent, {
                 callback: function (doc) {
                     doc.save('invoice.pdf');
                 },
