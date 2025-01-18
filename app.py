@@ -25,6 +25,14 @@ html_content = """
             padding: 0;
         }
 
+        .scrollable-container {
+            max-height: 600px; /* Set a max height for the scrollable container */
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
         .container {
             width: 800px;
             margin: 0 auto;
@@ -111,58 +119,60 @@ html_content = """
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <div id="invoice-content" class="invoice">
-        <div class="invoice-header blue-text">
-        <h1>INVOICE</h1>
-        <h2>NGOVI HOMESTAY</h2>
-        </div>
-
-        <div class="invoice-sub-header">
-            <div class="invoice-date">
-                <b class="blue-text">DATE :</b> <span id="invoice-date">18 January 2025</span>
+<div class="scrollable-container">
+    <div class="container">
+        <div id="invoice-content" class="invoice">
+            <div class="invoice-header blue-text">
+            <h1>INVOICE</h1>
+            <h2>NGOVI HOMESTAY</h2>
             </div>
-            <div class="invoice-to">
-                <b class="blue-text">TO :</b> <span id="invoice-to">Ana Awami</span>
+
+            <div class="invoice-sub-header">
+                <div class="invoice-date">
+                    <b class="blue-text">DATE :</b> <span id="invoice-date">18 January 2025</span>
+                </div>
+                <div class="invoice-to">
+                    <b class="blue-text">TO :</b> <span id="invoice-to">Ana Awami</span>
+                </div>
             </div>
-        </div>
 
-        <hr></hr>
+            <hr></hr>
 
-        <div class="invoice-details">
-            <center>
-                <table>
-                    <tr>
-                    <th>Check In</th>
-                    <td><span id="check-in">14th January 2025</span></td>
-                    </tr>
-                    <tr>
-                    <th>Check Out</th>
-                    <td><span id="check-out">18th January 2025</span></td>
-                    </tr>
-                    <tr>
-                    <th>Room Cost (<span id="room_type">2</span>BHK <span id="withac">AC</span> Unit)</th>
-                    <td>Rs. <span id="rate">3000</span>/day</td>
-                    </tr>
-                    <tr>
-                    <th>Fooding</th>
-                    <td>Rs. <span id="fooding">0</span> (Lunch and Dinner)</td>
-                    </tr>
-                    <tr>
-                    <th>Duration Of Stay</th>
-                    <td><span id="duration">4</span> Days</td>
-                    </tr>
-                    <tr>
-                    <th>Grand Total</th>
-                    <td>Rs. <span id="total">12000</span></td>
-                    </tr>
-                </table>
-            </center>
-        </div>
+            <div class="invoice-details">
+                <center>
+                    <table>
+                        <tr>
+                        <th>Check In</th>
+                        <td><span id="check-in">14th January 2025</span></td>
+                        </tr>
+                        <tr>
+                        <th>Check Out</th>
+                        <td><span id="check-out">18th January 2025</span></td>
+                        </tr>
+                        <tr>
+                        <th>Room Cost (<span id="room_type">2</span>BHK <span id="withac">AC</span> Unit)</th>
+                        <td>Rs. <span id="rate">3000</span>/day</td>
+                        </tr>
+                        <tr>
+                        <th>Fooding</th>
+                        <td>Rs. <span id="fooding">0</span> (Lunch and Dinner)</td>
+                        </tr>
+                        <tr>
+                        <th>Duration Of Stay</th>
+                        <td><span id="duration">4</span> Days</td>
+                        </tr>
+                        <tr>
+                        <th>Grand Total</th>
+                        <td>Rs. <span id="total">12000</span></td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
 
-        <div class="invoice-footer blue-text">
-            <p>NGOVI HOMESTAY | 5th BYLANE, SHAKUNTALA PATH, DOWNTOWN, 781001, GUWAHATI</p>
-            <p>PHONE: +91 9101431108/9366016858</p>
+            <div class="invoice-footer blue-text">
+                <p>NGOVI HOMESTAY | 5th BYLANE, SHAKUNTALA PATH, DOWNTOWN, 781001, GUWAHATI</p>
+                <p>PHONE: +91 9101431108/9366016858</p>
+            </div>
         </div>
     </div>
 </div>
@@ -199,8 +209,8 @@ html_content = """
 
         // Download PDF functionality
         $("#downloadButton").on("click", function() {
-            const invoiceElement = document.getElementById("invoice-content"); // Use the correct ID here
-            html2canvas(invoiceElement).then(function(canvas) {
+            const invoiceElement = document.getElementById("invoice-content"); 
+            html2canvas(invoiceElement, { scale: 3 }).then(function(canvas) { // Increased scale for better quality
                 const imgData = canvas.toDataURL("image/png");
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF("p", "mm", "a4");
@@ -219,4 +229,4 @@ html_content = """
 """
 
 # Embed the HTML content in the Streamlit app
-st.components.v1.html(html_content, height=800)
+st.components.v1.html(html_content, height=800, scrolling=True)
