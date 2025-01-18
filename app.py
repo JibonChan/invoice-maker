@@ -2,7 +2,7 @@ import streamlit as st
 
 # Hardcode credentials
 SECRET_USERNAME = "ano"
-SECRET_PASSWORD = "anoAwomi@123"
+SECRET_PASSWORD = "anoAwomi@123#"
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -143,7 +143,7 @@ else:
 
             /* Log out button style */
             #logoutButton {
-                position: fixed;
+                position: absolute;
                 top: 20px;
                 right: 20px;
                 padding: 10px;
