@@ -2,7 +2,7 @@ import streamlit as st
 
 # Hardcode credentials
 SECRET_USERNAME = st.secrets['LOGIN_USER']
-SECRET_PASSWORD = st.secrets['LOGIN_USER']
+SECRET_PASSWORD = st.secrets['LOGIN_PASSWORD']
 
 # Function to check credentials
 def check_credentials(username, password):
